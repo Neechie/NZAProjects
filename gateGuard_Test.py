@@ -1,8 +1,35 @@
 #!/usr/bin/python
 
 import bluetooth
+import bluetooth._bluetooth as bluez
 import time
+import os
+import subprocess
+import sys
 
+import logging 
+
+# choose between DEBUG (log every information) or CRITICAL (only error)
+logLevel=logging.DEBUG
+#logLevel=logging.CRITICAL
+
+#Reset Bluetooth interface, hci0
+os.system("sudo hciconfig hci0 down")
+os.system("sudo hciconfig hci0 up")
+
+#Make sure device is up
+interface = subprocess.Popen(["sudo hciconfig"], stdout=subprocess.PIPE, shell=True)
+(output, err) = interface.communicate()
+
+if "RUNNING" in output: #Check return of hciconfig to make sure it's up
+    logging.debug('Ok hci0 interface Up n running !')
+else:
+    logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
+    sys.exit(1)
+
+
+
+###################################################################################################################################
 print ("National Zoo and Aquarium Gate Guard")
 
 brendanTile = 'FF:04:19:C1:CF:2D'
