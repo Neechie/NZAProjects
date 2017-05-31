@@ -1,16 +1,16 @@
 
 
 #!/usr/bin/python
-#   File : tester.py
-#   Author: 
-#   Date: 
-#   Description : Test 
+#   File : tester1.0.py
+#   Author: Neechie
+#   Date: 31/05/2017
+#   Description : Gate guard function to eb run on raspberrypi
 #   URL : 
-#   Version : 
+#   Version : 1.0
 #
 
-#REPEAT_MODE = 1
 
+#Tag Data array
 TAG_DATA = [  
            "Brendan","ff:04:19:c1:cf:2d",
             "Danielle","ff:3a:60:93:de:a1",
@@ -18,12 +18,11 @@ TAG_DATA = [
             "Tile4","cf:c3:75:38:f2:ed"
            ]
 
-           
+#Tag data
 brendanTile = 'ff:04:19:c1:cf:2d'
 danielleTile = 'ff:3a:60:93:de:a1'
 russellTile = 'c6:54:f4:99:e7:e7'
 tile4 = 'cf:c3:75:38:f2:ed'
-
 
 import logging
 
@@ -33,9 +32,9 @@ logLevel=logging.DEBUG
 
 #logOutFilename='/var/log/test_beacon.log'       # output LOG : File or console (comment this line to console output)
 
+########################################################################################################################################
 
-################ Nothing to edit under this line #####################################################################################
-
+##import libs
 import os
 import subprocess
 import sys
@@ -46,14 +45,21 @@ import requests
 import signal
 import threading
 
+#Emailer function and details
+from pythonEmailer import send_email
+
+###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
+user =
+pwd = 
+recipient = IT@
+subject = 
+body = 
 
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
 OCF_LE_SET_SCAN_ENABLE=0x000C
 EVT_LE_CONN_COMPLETE=0x01
 EVT_LE_ADVERTISING_REPORT=0x02
-
-
 
 def print_packet(pkt):
     for c in pkt:
@@ -75,8 +81,6 @@ def handler(signum = None, frame = None):
     
 for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
     signal.signal(sig, handler)
-
-
             
 FORMAT = '%(asctime)s - %(name)s -  %(message)s'
 if globals().has_key('logOutFilename') :
@@ -140,7 +144,8 @@ while True:
                             if (result == brendanTile):
                                 name = "Brendan"
                                 print name +": detected at gate"
-                                    
+                                send_email(user, pwd, recipient, subject, body) 
+                      
                             elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
@@ -150,7 +155,7 @@ while True:
                                 print name +": detected at gate"
 
                             else:
-                                print "None detected"
+                                return
                             
                            
 
