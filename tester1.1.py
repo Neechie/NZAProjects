@@ -1,28 +1,28 @@
 
 
 #!/usr/bin/python
-#   File : test_beacon.py
-#   Author: jmleglise
-#   Date: 25-May-2016
-#   Description : Test your beacon 
-#   URL : https://github.com/jmleglise/mylittle-domoticz/edit/master/Presence%20detection%20%28beacon%29/test_beacon.py
-#   Version : 1.0
+#   File : tester.py
+#   Author: 
+#   Date: 
+#   Description : Test 
+#   URL : 
+#   Version : 
 #
 
-REPEAT_MODE = 1
+#REPEAT_MODE = 1
 
 TAG_DATA = [  
-            ["Brendan","FF:04:19:C1:CF:2D",30,0,8,REPEAT_MODE],
-            ["Danielle","FF:3A:60:93:DE:A1",30,0,6,REPEAT_MODE],
-            ["Russell","C6:54:F4:99:E7:E7",30,0,9,REPEAT_MODE],
-            ["Tile4","CF:C3:75:38:F2:ED",30,0,7,REPEAT_MODE]
+           "Brendan","ff:04:19:c1:cf:2d",
+            "Danielle","ff:3a:60:93:de:a1",
+            "Russell","c6:54:f4:99:e7:e7",
+            "Tile4","cf:c3:75:38:f2:ed"
            ]
 
            
 brendanTile = 'ff:04:19:c1:cf:2d'
 danielleTile = 'ff:3a:60:93:de:a1'
 russellTile = 'c6:54:f4:99:e7:e7'
-tile4 = "cf:c3:75:38:f2:ed"
+tile4 = 'cf:c3:75:38:f2:ed'
 
 
 import logging
@@ -140,11 +140,11 @@ while True:
                             if (result == brendanTile):
                                 name = "Brendan"
                                 print name +": detected at gate"
-                                
+                                    
                             elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
-
+                                    
                             elif (result == russellTile):
                                 name = "Russell"
                                 print name +": detected at gate"
