@@ -1,7 +1,8 @@
-#Emailer function to notify staff
+#Emailer function to notify staff of breach
 
 def send_email(user, pwd, recipient, subject, body, name):
     import smtplib
+    import time
 
     gmail_user = user
     gmail_pwd = pwd
@@ -20,6 +21,6 @@ def send_email(user, pwd, recipient, subject, body, name):
         server.login(gmail_user, gmail_pwd)
         server.sendmail(FROM, TO, message)
         server.close()
-        print 'successfully sent the mail'
+        print 'Successfully sent email at '+ time.strftime("%T, %d/%m/%y") 
     except:
-        print "failed to send mail"
+        print "Failed to send email"

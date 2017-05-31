@@ -51,10 +51,11 @@ from pythonEmailer import send_email
 ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
 user = 'NZARasPi@gmail.com'
 pwd = 'Jamala123'
-recipient = 'IT@nationalzoo.com.au'
+recipient = 'brendan_neech@hotmail.com'
 subject = 'Gate Alert'
-body = ["There has been an alarm at the gate! \n \n %s has been detected leaving the premises."  ] 
-
+name = 'Name'
+body = "There has been an alarm at the gate! " + 'Name' + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + 'Sent from NZARasPi'
+ 
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
 OCF_LE_SET_SCAN_ENABLE=0x000C
