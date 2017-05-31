@@ -9,8 +9,8 @@ brendanTile = 'FF:04:19:C1:CF:2D'
 danielleTile = 'FF:3A:60:93:DE:A1'
 russellTile =  'C6:54:F4:99:E7:E7'
 fourthTile = 'CF:C3:75:38:F2:ED'
-
-#brendanlist = ["FF:04:19:C1:CF:2D", Brendan]
+brendanPhone = 'E8:B4:C8:72:52:0D'
+#:brendanlist = ["FF:04:19:C1:CF:2D", Brendan]
 
 
 while True:
@@ -18,28 +18,28 @@ while True:
         print("Checking " + time.strftime("%a %d %b %Y %H:%m:%S", time.gmtime()))
 
 ##Test MAC addresses
-        result=bluetooth.lookup_name('FF:04:19:C1:CF:2D', timeout=5)
-        name= "Brendan"
+        result=bluetooth.lookup_name(brendanPhone, timeout=5)
+        name= "BrendanP"
         if(result!=None):
                 print ( name + ": IN")
         else:
                 print ( name + ": OUT")
 
-        result=bluetooth.lookup_name(danielleTile, timeout=5)
-        name= "Danielle"
+        result=bluetooth.lookup_name(brendanTile, timeout=1)
+        name= "DanielleT"
         if(result!=None):
                 print ( name + ": IN")
         else:
                 print ( name + ": OUT")
 
-        result=bluetooth.lookup_name(russellTile, timeout=5)
+        result=bluetooth.lookup_name(russellTile, timeout=1)
         name = "Russell"
         if(result!=None):
                 print ( name +": IN")
         else:
                 print ( name +": OUT")
 
-        result=bluetooth.lookup_name(fourthTile, timeout=5)
+        result=bluetooth.lookup_name(fourthTile, timeout=1)
         name = "4th Tile"
         if(result!=None):
                 print ( name +": IN")
