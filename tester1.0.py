@@ -49,11 +49,11 @@ import threading
 from pythonEmailer import send_email
 
 ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
-user =
-pwd = 
-recipient = IT@
-subject = 
-body = 
+user = 'NZARasPi@gmail.com'
+pwd = 'Jamala123'
+recipient = 'IT@nationalzoo.com.au'
+subject = 'Gate Alert'
+body = ["There has been an alarm at the gate! \n \n %s has been detected leaving the premises."  ] 
 
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
@@ -144,8 +144,8 @@ while True:
                             if (result == brendanTile):
                                 name = "Brendan"
                                 print name +": detected at gate"
-                                send_email(user, pwd, recipient, subject, body) 
-                      
+                                send_email(user, pwd, recipient, subject, body, name) 
+  				time.sleep(5)                    
                             elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
@@ -155,7 +155,7 @@ while True:
                                 print name +": detected at gate"
 
                             else:
-                                return
+                                print "No breach of the gate"
                             
                            
 

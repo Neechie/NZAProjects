@@ -1,6 +1,6 @@
 #Emailer function to notify staff
 
-def send_email(user, pwd, recipient, subject, body):
+def send_email(user, pwd, recipient, subject, body, name):
     import smtplib
 
     gmail_user = user
