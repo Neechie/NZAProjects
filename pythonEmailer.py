@@ -8,7 +8,7 @@ def send_email(user, pwd, recipient, subject, body):
     FROM = user
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = subject
-    TEXT = ##body
+    TEXT = body
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
