@@ -156,6 +156,7 @@ while True:
                                 print name +": detected at gate"
                                 send_email(user, pwd, recipient, subject, body, name)
                                 GPIO.output(green,GPIO.HIGH)
+                                GPIO.output(red, GPIO.LOW)
                                 time.sleep(5)                    
                             elif (result == tile4):
                                 name = "Tile 4"
