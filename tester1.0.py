@@ -159,7 +159,7 @@ while True:
                             alarm = 0
                             GPIO.output(green,GPIO.LOW)
                             GPIO.output(red,GPIO.HIGH)
-                        if (result == TAG[c]):
+                            if (result == TAG[c]):
                                 name = NAME[c]
                                 alarm = alarm + 1
                                 print name +": detected at gate"
@@ -170,14 +170,14 @@ while True:
                                  print "dummy email sent"
                                 time.sleep(5)                    
                             
-                        elif (result == tile4):
+                            elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
                                     
-                        elif (result == russellTile):
+                            elif (result == russellTile):
                                 name = "Russell"
                                 print name +": detected at gate"
-                        else:
+                            else:
                                 print "No breach of the gate"
                             
                            
