@@ -178,15 +178,10 @@ while GPIO.input(stopButton) ==0:
                                                           time.sleep(5)
                                                           if GPIO.input(resetButton) ==0:
                                                                         alarm = 0
+                                                                        GPIO.output(red,GPIO.LOW)
+                                                                        GPIO.output(green,GPIO.HIGH)
                                                           c = c+1
 
-                                                #elif (result == tile4):
-                                                    #    name = "Tile 4"
-                                                    #    print name + ": detected at gate"
-
-                                                   # elif (result == russellTile):
-                                                    #    name = "Russell"
-                                                    #    print name +": detected at gate"
                                                 else:
                                                             print "No breach of the gate"
                                                             c = c+1
