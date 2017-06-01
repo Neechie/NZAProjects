@@ -55,9 +55,11 @@ import RPi.GPIO as GPIO
 
 red = 7
 green = 11
+button = 13
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)
+GPIO.setup(button, GPIO.IN)
 
 #Emailer function and details
 from pythonEmailer import send_email
@@ -154,33 +156,34 @@ while True:
                 num_reports = struct.unpack("B", pkt[0])[0]
                 report_pkt_offset = 0
                 for i in range(0, num_reports):
-                            result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
-                            found=0
-                            alarm = 0
-                            GPIO.output(green,GPIO.LOW)
-                            GPIO.output(red,GPIO.HIGH)
-                            if (result == TAG[c]):
-                                name = NAME[c]
-                                alarm = alarm + 1
-                                print name +": detected at gate"
-                                GPIO.output(green,GPIO.HIGH)
-                                GPIO.output(red, GPIO.LOW)
-                                if alarm == 1:
-                                 #send_email(user, pwd, recipient, subject, body, name)
-                                 print "dummy email sent"
-                                time.sleep(5)                    
+                        while GPIO.input(button) ==0:
+                                    time.sleep(0.5) 
+                                        result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
+                                        found=0
+                                        alarm = 0
+                                        GPIO.output(green,GPIO.LOW)
+                                        GPIO.output(red,GPIO.HIGH)
+                                        if (result == TAG[c]):
+                                            name = NAME[c]
+                                            alarm = alarm + 1
+                                            print name +": detected at gate"
+                                            GPIO.output(green,GPIO.HIGH)
+                                            GPIO.output(red, GPIO.LOW)
+                                            if alarm == 1:
+                                                #send_email(user, pwd, recipient, subject, body, name)
+                                                print "dummy email sent"
+                                            time.sleep(5)                    
+
+                                        #elif (result == tile4):
+                                        #    name = "Tile 4"
+                                        #    print name + ": detected at gate"
+
+                                       # elif (result == russellTile):
+                                        #    name = "Russell"
+                                        #    print name +": detected at gate"
+                                        else:
+                                            print "No breach of the gate"
                             
-                            #elif (result == tile4):
-                            #    name = "Tile 4"
-                            #    print name + ": detected at gate"
-                                    
-                           # elif (result == russellTile):
-                            #    name = "Russell"
-                            #    print name +": detected at gate"
-                            else:
-                                print "No breach of the gate"
-                            
-                           
 
 
 
@@ -192,6 +195,7 @@ while True:
 
 
 
-    sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+
+sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
 GPIO.cleanup()
 
