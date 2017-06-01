@@ -164,17 +164,17 @@ while GPIO.input(button) ==0:
                                                 result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                                                 found=0
                                                 alarm = 0
-                                                 if (result == TAG[c]):
-                                                                        name = NAME[c]
-                                                                        alarm = alarm + 1
-                                                                        print name +": detected at gate"
-                                                                        GPIO.output(red,GPIO.HIGH)
-                                                                        GPIO.output(green, GPIO.LOW)
-                                                                        if alarm == 1:
-                                                                                    #send_email(user, pwd, recipient, subject, body, name)
-                                                                                    print "dummy email sent"
-                                                                        time.sleep(5)
-                                                                        c = c+1
+                                                if (result == TAG[c]):
+                                                          name = NAME[c]
+                                                          alarm = alarm + 1
+                                                          print name +": detected at gate"
+                                                          GPIO.output(red,GPIO.HIGH)
+                                                          GPIO.output(green, GPIO.LOW)
+                                                          if alarm == 1:
+                                                                #send_email(user, pwd, recipient, subject, body, name)
+                                                                print "dummy email sent"
+                                                          time.sleep(5)
+                                                          c = c+1
 
                                                 #elif (result == tile4):
                                                     #    name = "Tile 4"
