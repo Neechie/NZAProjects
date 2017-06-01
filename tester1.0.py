@@ -55,11 +55,13 @@ import RPi.GPIO as GPIO
 
 red = 7
 green = 11
-button = 13
+stopButton = 13
+resetButton = 15
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)
-GPIO.setup(button, GPIO.IN)
+GPIO.setup(stopButton, GPIO.IN)
+GPIO.setup(resetButton, GPIO.IN)
 
 GPIO.output(red,GPIO.LOW)
 GPIO.output(green,GPIO.HIGH)
@@ -134,7 +136,7 @@ old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
 
-while GPIO.input(button) ==0:
+while GPIO.input(stopButton) ==0:
             
             old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
             flt = bluez.hci_filter_new()
@@ -174,6 +176,8 @@ while GPIO.input(button) ==0:
                                                                 #send_email(user, pwd, recipient, subject, body, name)
                                                                 print "dummy email sent"
                                                           time.sleep(5)
+                                                          if GPIO.input(resetButton) ==0:
+                                                                        alarm = 0
                                                           c = c+1
 
                                                 #elif (result == tile4):
