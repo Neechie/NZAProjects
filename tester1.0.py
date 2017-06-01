@@ -184,6 +184,7 @@ while True:
                                         #    print name +": detected at gate"
                                     else:
                                                 print "No breach of the gate"
+                                                c = c+1
                             
 
 
