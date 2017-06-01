@@ -4,7 +4,7 @@
 #   File : tester1.0.py
 #   Author: Neechie
 #   Date: 31/05/2017
-#   Description : Gate guard function to eb run on raspberrypi
+#   Description : Gate guard function to be run on raspberrypi
 #   URL : 
 #   Version : 1.0
 #
@@ -156,7 +156,7 @@ while GPIO.input(button) ==0:
                                     num_reports = struct.unpack("B", pkt[0])[0]
                         report_pkt_offset = 0
                         for i in range(0, num_reports):
-                                    for c in range(0,len(TAG[]))
+                                    for c in range(0,len(TAG))
 
                                                 result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                                                 found=0
