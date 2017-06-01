@@ -65,6 +65,7 @@ GPIO.setup(resetButton, GPIO.IN)
 
 GPIO.output(red,GPIO.LOW)
 GPIO.output(green,GPIO.HIGH)
+marker = GPIO.input(stopButton)
 
 #Emailer function and details
 from pythonEmailer import send_email
@@ -136,7 +137,7 @@ old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
 while True:
-            while GPIO.input(stopButton) ==0:
+            while marker == 1:
 
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
@@ -181,6 +182,7 @@ while True:
                                                                                     print 'alarm has been reset'
                                                                                     GPIO.output(red,GPIO.LOW)
                                                                                     GPIO.output(green,GPIO.HIGH)
+                                                                                    time.sleep(5)
                                                                       c = c+1
 
                                                             else:
