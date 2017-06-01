@@ -11,12 +11,19 @@
 
 
 #Tag Data array
-TAG_DATA = [  
-           "Brendan","ff:04:19:c1:cf:2d",
-            "Danielle","ff:3a:60:93:de:a1",
-            "Russell","c6:54:f4:99:e7:e7",
-            "Tile4","cf:c3:75:38:f2:ed"
+TAG = [     "ff:04:19:c1:cf:2d",
+            "ff:3a:60:93:de:a1",
+            "c6:54:f4:99:e7:e7",
+            "cf:c3:75:38:f2:ed"
            ]
+
+NAME = [
+           "Brendan",
+           "Danielle",
+           "Russell",
+           "Tile4"
+           ]
+c=0
 
 #Tag data
 brendanTile = 'ff:04:19:c1:cf:2d'
@@ -61,7 +68,7 @@ pwd = 'Jamala123'
 recipient = 'brendan_neech@hotmail.com'
 subject = 'Gate Alert'
 name = 'Name'
-body = "There has been an alarm at the gate! " + 'Name' + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + 'Sent from NZARasPi'
+body = "There has been an alarm at the gate! " + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + ' Sent from NZARasPi'
  
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
@@ -149,15 +156,21 @@ while True:
                 for i in range(0, num_reports):
                             result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                             found=0
+                            alarm = 0
                             GPIO.output(green,GPIO.LOW)
                             GPIO.output(red,GPIO.HIGH)
+                      
                             if (result == brendanTile):
                                 name = "Brendan"
+                                alarm = alarm + 1
                                 print name +": detected at gate"
-                                send_email(user, pwd, recipient, subject, body, name)
                                 GPIO.output(green,GPIO.HIGH)
                                 GPIO.output(red, GPIO.LOW)
+                                if alarm == 1
+                                 #send_email(user, pwd, recipient, subject, body, name)
+                                 print "dummy email sent"
                                 time.sleep(5)                    
+                            
                             elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
