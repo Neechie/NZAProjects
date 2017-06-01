@@ -131,61 +131,61 @@ old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
 
-while True:
-    old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
-    flt = bluez.hci_filter_new()
-    bluez.hci_filter_all_events(flt)
-    bluez.hci_filter_set_ptype(flt, bluez.HCI_EVENT_PKT)
-    sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, flt )
-    
-    pkt = sock.recv(255)
-    ptype, event, plen = struct.unpack("BBB", pkt[:3])
+while GPIO.input(button) ==0:
+            
+            old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
+            flt = bluez.hci_filter_new()
+            bluez.hci_filter_all_events(flt)
+            bluez.hci_filter_set_ptype(flt, bluez.HCI_EVENT_PKT)
+            sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, flt )
+            pkt = sock.recv(255)
+            ptype, event, plen = struct.unpack("BBB", pkt[:3])
 
-    if event == bluez.EVT_INQUIRY_RESULT_WITH_RSSI:
-            i =0
-    elif event == bluez.EVT_NUM_COMP_PKTS:
-            i =0 
-    elif event == bluez.EVT_DISCONN_COMPLETE:
-            i =0 
-    elif event == LE_META_EVENT:
-            subevent, = struct.unpack("B", pkt[3])
-            pkt = pkt[4:]
-            if subevent == EVT_LE_CONN_COMPLETE:
-                le_handle_connection_complete(pkt)
-            elif subevent == EVT_LE_ADVERTISING_REPORT:
-                num_reports = struct.unpack("B", pkt[0])[0]
-                report_pkt_offset = 0
-                for i in range(0, num_reports):
-                        while GPIO.input(button) ==0:
-                                    time.sleep(0.5) 
-                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
-                                    found=0
-                                    alarm = 0
-                                    GPIO.output(green,GPIO.LOW)
-                                    GPIO.output(red,GPIO.HIGH)
-                                    if (result == TAG[c]):
-                                         name = NAME[c]
-                                         alarm = alarm + 1
-                                         print name +": detected at gate"
-                                         GPIO.output(green,GPIO.HIGH)
-                                         GPIO.output(red, GPIO.LOW)
-                                         if alarm == 1:
-                                              #send_email(user, pwd, recipient, subject, body, name)
-                                              print "dummy email sent"
-                                         time.sleep(5)
-                                         c = c+1
+            if event == bluez.EVT_INQUIRY_RESULT_WITH_RSSI:
+                        i =0
+            elif event == bluez.EVT_NUM_COMP_PKTS:
+                        i =0 
+            elif event == bluez.EVT_DISCONN_COMPLETE:
+                        i =0 
+            elif event == LE_META_EVENT:
+                        subevent, = struct.unpack("B", pkt[3])
+                        pkt = pkt[4:]
+                        if subevent == EVT_LE_CONN_COMPLETE:
+                                    le_handle_connection_complete(pkt)
+                        elif subevent == EVT_LE_ADVERTISING_REPORT:
+                        num_reports = struct.unpack("B", pkt[0])[0]
+                        report_pkt_offset = 0
+                        for i in range(0, num_reports):
+                                    for c in range(0,len(TAG[]))
 
-                                    #elif (result == tile4):
-                                        #    name = "Tile 4"
-                                        #    print name + ": detected at gate"
+                                                result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
+                                                found=0
+                                                alarm = 0
+                                                GPIO.output(green,GPIO.LOW)
+                                                GPIO.output(red,GPIO.HIGH)
+                                                if (result == TAG[c]):
+                                                     name = NAME[c]
+                                                     alarm = alarm + 1
+                                                     print name +": detected at gate"
+                                                     GPIO.output(green,GPIO.HIGH)
+                                                     GPIO.output(red, GPIO.LOW)
+                                                     if alarm == 1:
+                                                          #send_email(user, pwd, recipient, subject, body, name)
+                                                          print "dummy email sent"
+                                                     time.sleep(5)
+                                                     c = c+1
 
-                                       # elif (result == russellTile):
-                                        #    name = "Russell"
-                                        #    print name +": detected at gate"
-                                    else:
-                                                print "No breach of the gate"
-                                                c = c+1
-                            
+                                                #elif (result == tile4):
+                                                    #    name = "Tile 4"
+                                                    #    print name + ": detected at gate"
+
+                                                   # elif (result == russellTile):
+                                                    #    name = "Russell"
+                                                    #    print name +": detected at gate"
+                                                else:
+                                                            print "No breach of the gate"
+                                                            c = c+1
+
 
 
 
