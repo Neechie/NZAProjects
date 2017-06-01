@@ -61,6 +61,9 @@ GPIO.setup(green, GPIO.OUT)
 GPIO.setup(red, GPIO.OUT)
 GPIO.setup(button, GPIO.IN)
 
+GPIO.output(red,GPIO.LOW)
+GPIO.output(green,GPIO.HIGH)
+
 #Emailer function and details
 from pythonEmailer import send_email
 
@@ -156,19 +159,17 @@ while GPIO.input(button) ==0:
                                     num_reports = struct.unpack("B", pkt[0])[0]
                         report_pkt_offset = 0
                         for i in range(0, num_reports):
-                                    for c in range(0,len(TAG))
+                                    for c in range(0,len(TAG)):
 
                                                 result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                                                 found=0
                                                 alarm = 0
-                                                GPIO.output(green,GPIO.LOW)
-                                                GPIO.output(red,GPIO.HIGH)
-                                                if (result == TAG[c]):
+                                                 if (result == TAG[c]):
                                                      name = NAME[c]
                                                      alarm = alarm + 1
                                                      print name +": detected at gate"
-                                                     GPIO.output(green,GPIO.HIGH)
-                                                     GPIO.output(red, GPIO.LOW)
+                                                     GPIO.output(red,GPIO.HIGH)
+                                                     GPIO.output(green, GPIO.LOW)
                                                      if alarm == 1:
                                                           #send_email(user, pwd, recipient, subject, body, name)
                                                           print "dummy email sent"
@@ -197,7 +198,7 @@ while GPIO.input(button) ==0:
 
 
 
-
+alarm = 0
 sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
 GPIO.cleanup()
 
