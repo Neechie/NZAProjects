@@ -172,7 +172,8 @@ while True:
                                          if alarm == 1:
                                               #send_email(user, pwd, recipient, subject, body, name)
                                               print "dummy email sent"
-                                         time.sleep(5)                    
+                                         time.sleep(5)
+                                         c = c+1
 
                                     #elif (result == tile4):
                                         #    name = "Tile 4"
