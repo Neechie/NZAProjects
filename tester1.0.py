@@ -153,7 +153,7 @@ while GPIO.input(button) ==0:
                         if subevent == EVT_LE_CONN_COMPLETE:
                                     le_handle_connection_complete(pkt)
                         elif subevent == EVT_LE_ADVERTISING_REPORT:
-                        num_reports = struct.unpack("B", pkt[0])[0]
+                                    num_reports = struct.unpack("B", pkt[0])[0]
                         report_pkt_offset = 0
                         for i in range(0, num_reports):
                                     for c in range(0,len(TAG[]))
