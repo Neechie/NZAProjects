@@ -159,8 +159,8 @@ while True:
                             alarm = 0
                             GPIO.output(green,GPIO.LOW)
                             GPIO.output(red,GPIO.HIGH)
-                        if (result == brendanTile):
-                                name = "Brendan"
+                        if (result == TAG[c]):
+                                name = NAME[c]
                                 alarm = alarm + 1
                                 print name +": detected at gate"
                                 GPIO.output(green,GPIO.HIGH)
