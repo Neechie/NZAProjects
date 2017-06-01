@@ -165,7 +165,7 @@ while True:
                                 print name +": detected at gate"
                                 GPIO.output(green,GPIO.HIGH)
                                 GPIO.output(red, GPIO.LOW)
-                                if alarm == 1
+                                if alarm == 1:
                                  #send_email(user, pwd, recipient, subject, body, name)
                                  print "dummy email sent"
                                 time.sleep(5)                    
