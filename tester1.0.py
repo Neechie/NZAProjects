@@ -72,7 +72,7 @@ from pythonEmailer import send_email
 ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
 user = 'NZARasPi@gmail.com'
 pwd = 'Jamala123'
-recipient = 'brendan_neech@hotmail.com'
+recipient = 'IT@nationalzoo.com.au'
 subject = 'Gate Alert'
 name = 'Name'
 body = "There has been an alarm at the gate! " + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + ' Sent from NZARasPi'
