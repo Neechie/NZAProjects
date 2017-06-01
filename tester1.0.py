@@ -44,6 +44,13 @@ import time
 import requests
 import signal
 import threading
+import RPi.GPIO as GPIO
+
+red = 7
+green = 11
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(green, GPIO.OUT)
+GPIO.setup(red, GPIO.OUT)
 
 #Emailer function and details
 from pythonEmailer import send_email
@@ -142,11 +149,14 @@ while True:
                 for i in range(0, num_reports):
                             result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                             found=0
+                            GPIO.output(green,GPIO.LOW)
+                            GPIO.output(red,GPIO.HIGH)
                             if (result == brendanTile):
                                 name = "Brendan"
                                 print name +": detected at gate"
-                                send_email(user, pwd, recipient, subject, body, name) 
-  				time.sleep(5)                    
+                                send_email(user, pwd, recipient, subject, body, name)
+                                GPIO.output(green,GPIO.HIGH)
+  	                     time.sleep(5)                    
                             elif (result == tile4):
                                 name = "Tile 4"
                                 print name + ": detected at gate"
@@ -154,7 +164,7 @@ while True:
                             elif (result == russellTile):
                                 name = "Russell"
                                 print name +": detected at gate"
-
+                                 
                             else:
                                 print "No breach of the gate"
                             
