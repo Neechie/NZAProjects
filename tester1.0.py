@@ -65,7 +65,6 @@ GPIO.setup(resetButton, GPIO.IN)
 
 GPIO.output(red,GPIO.LOW)
 GPIO.output(green,GPIO.HIGH)
-marker = GPIO.input(stopButton)
 
 #Emailer function and details
 from pythonEmailer import send_email
@@ -136,8 +135,8 @@ except:
 old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
-while True:
-            while marker == 0:
+#while True:
+            while GPIO.input(stopButton) == 0:
 
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
@@ -171,7 +170,7 @@ while True:
                                                                       name = NAME[c]
                                                                       alarm = alarm + 1
                                                                       print name +": detected at gate"
-                                                                      GPIO.output(red,GPIO.HIGH)
+                                                                      GPIO.output(red, GPIO.HIGH)
                                                                       GPIO.output(green, GPIO.LOW)
                                                                       if alarm == 1:
                                                                             #send_email(user, pwd, recipient, subject, body, name)
