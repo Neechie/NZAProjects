@@ -181,4 +181,5 @@ while True:
 
 
     sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+GPIO.cleanup()
 
