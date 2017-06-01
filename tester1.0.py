@@ -178,12 +178,13 @@ while True:
                                                                       time.sleep(3)
                                                                       if GPIO.input(resetButton) ==0:
                                                                                     alarm = 0
+                                                                                    print 'alarm has been reset'
                                                                                     GPIO.output(red,GPIO.LOW)
                                                                                     GPIO.output(green,GPIO.HIGH)
                                                                       c = c+1
 
                                                             else:
-                                                                        print "No breach of the gate"
+                                                                        print 'No breach of the gate'
                                                                         c = c+1
 
 
