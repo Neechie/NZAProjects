@@ -137,9 +137,9 @@ while GPIO.input(stopButton) == 0:
             
             old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
             hci_toggle_le_scan(sock, 0x01)
-
-
-
+                        
+                        
+                        
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
                         bluez.hci_filter_all_events(flt)
@@ -164,7 +164,7 @@ while GPIO.input(stopButton) == 0:
                                     report_pkt_offset = 0
                                     for i in range(0, num_reports):
                                                 for c in range(0,len(TAG)):
-
+                                                            
                                                             result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                                                             found=0
                                                             alarm = 0
