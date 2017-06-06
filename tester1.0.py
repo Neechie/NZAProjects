@@ -173,7 +173,7 @@ while GPIO.input(stopButton) == 0:
                                                             if alarm == 1:
                                                                        #send_email(user, pwd, recipient, subject, body, name)
                                                                        print "dummy email sent"
-                                                                        time.sleep(3)
+                                                                       time.sleep(3)
                                                             if GPIO.input(resetButton) == 0:
                                                                         alarm = 0
                                                                         print 'alarm has been reset'
