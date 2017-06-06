@@ -136,7 +136,7 @@ old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
 while True:
-            while GPIO.input(stopButton) == 0:
+            while GPIO.input(stopButton) == 1:
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
                         bluez.hci_filter_all_events(flt)
