@@ -63,6 +63,8 @@ GPIO.setup(red, GPIO.OUT)
 GPIO.setup(stopButton, GPIO.IN)
 GPIO.setup(resetButton, GPIO.IN)
 
+marker = 0
+
 GPIO.output(red,GPIO.LOW)
 GPIO.output(green,GPIO.HIGH)
 
@@ -136,7 +138,7 @@ old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
 while True:
-            while GPIO.input(stopButton) == 0:
+            while marker == 0:
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
                         bluez.hci_filter_all_events(flt)
@@ -181,7 +183,7 @@ while True:
                                                                                     GPIO.output(green,GPIO.HIGH)
                                                                                     time.sleep(5)
                                                                         elif GPIO.input(stopButton) == 1: 
-                                                                                    return
+                                                                                    marker = marker+1
                                                                         c = c+1
 
                                                             else:
