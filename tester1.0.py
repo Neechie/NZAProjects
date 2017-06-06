@@ -132,11 +132,13 @@ except:
     logging.critical('Unable to connect to bluetooth device...')
     sys.exit(1)
 
-old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
-hci_toggle_le_scan(sock, 0x01)
-
 #while True:
             while GPIO.input(stopButton) == 0:
+            
+            old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
+            hci_toggle_le_scan(sock, 0x01)
+
+
 
                         old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         flt = bluez.hci_filter_new()
@@ -176,7 +178,7 @@ hci_toggle_le_scan(sock, 0x01)
                                                                             #send_email(user, pwd, recipient, subject, body, name)
                                                                             print "dummy email sent"
                                                                       time.sleep(3)
-                                                                      if GPIO.input(resetButton) ==0:
+                                                                      if GPIO.input(resetButton) == 0:
                                                                                     alarm = 0
                                                                                     print 'alarm has been reset'
                                                                                     GPIO.output(red,GPIO.LOW)
