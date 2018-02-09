@@ -72,12 +72,12 @@ GPIO.output(green,GPIO.HIGH)
 from pythonEmailer import send_email
 
 ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
-user = 'NZARasPi@gmail.com'
-pwd = 'Jamala123'
-recipient = 'brendan@nationalzoo.com.au'
-subject = 'Gate Alert'
+#user = 'NZARasPi@gmail.com'
+#pwd = 'Jamala123'
+#recipient = 'brendan@nationalzoo.com.au'
+#subject = 'Gate Alert'
 #name =  NAME[c]
-body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + '\n\n Sent from NZARasPi'
+#body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + '\n\n Sent from NZARasPi'
  
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
@@ -173,9 +173,17 @@ try:
                                                                         GPIO.output(red, GPIO.HIGH)
                                                                         GPIO.output(green, GPIO.LOW)
                                                                         if alarm == 1:
-                                                                                   send_email(user, pwd, recipient, subject, body, name)
-                                                                                   print " email sent"
-                                                                                   time.sleep(3)
+                                                                                    ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
+                                                                                    user = 'NZARasPi@gmail.com'
+                                                                                    pwd = 'Jamala123'
+                                                                                    recipient = 'brendan@nationalzoo.com.au'
+                                                                                    subject = 'Gate Alert'
+                                                                                    name =  NAME[c]
+                                                                                    body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + '\n\n Sent from NZARasPi'
+ 
+                                                                                    send_email(user, pwd, recipient, subject, body, name)
+                                                                                    print " email sent"
+                                                                                    time.sleep(3)
                                                                         if GPIO.input(resetButton) == 1:
                                                                                     alarm = 0
                                                                                     print 'alarm has been reset'
