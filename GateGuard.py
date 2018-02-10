@@ -190,14 +190,6 @@ try:
                                                                         c = c+1
 
 
-
-
-
-
-
-
-
-
 finally:
             print "Closing program"
             alarm = 0
