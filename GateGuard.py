@@ -71,14 +71,6 @@ GPIO.output(green,GPIO.HIGH)
 #Emailer function and details
 from pythonEmailer import send_email
 
-###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
-#user = 'NZARasPi@gmail.com'
-#pwd = 'Jamala123'
-#recipient = 'brendan@nationalzoo.com.au'
-#subject = 'Gate Alert'
-#name =  NAME[c]
-#body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + '\n\n Sent from NZARasPi'
- 
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
 OCF_LE_SET_SCAN_ENABLE=0x000C
@@ -174,29 +166,27 @@ try:
                                                                         GPIO.output(green, GPIO.LOW)
                                                                         if alarm == 1:
                                                                                     ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
-                                                                                    user = 'NZARasPi@gmail.com'
-                                                                                    pwd = 'Jamala123'
-                                                                                    recipient = 'brendan@nationalzoo.com.au'
-                                                                                    subject = 'Gate Alert'
+                                                                                    user = "NZARasPi@gmail.com"
+                                                                                    pwd = "Jamala123"
+                                                                                    recipient = "brendan@nationalzoo.com.au"
+                                                                                    subject = "Gate Alert: " + NAME[c]
                                                                                     name =  NAME[c]
-                                                                                    body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + '\n\n Sent from NZARasPi'
+                                                                                    body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard"
  
                                                                                     send_email(user, pwd, recipient, subject, body, name)
-                                                                                    print " email sent"
                                                                                     time.sleep(3)
                                                                         if GPIO.input(resetButton) == 1:
                                                                                     alarm = 0
-                                                                                    print 'alarm has been reset'
+                                                                                    print "alarm has been reset"
                                                                                     GPIO.output(red,GPIO.LOW)
                                                                                     GPIO.output(green,GPIO.HIGH)
                                                                                     time.sleep(5)
                                                                         elif GPIO.input(stopButton) == 1: 
                                                                                     marker = marker+1
                                                                         c = c+1
-                                                                        print num_reports
-
+                                                                        
                                                             else:
-                                                                        print 'No breach of the gate'
+                                                                        print "No breach of the gate"
                                                                         c = c+1
 
 
