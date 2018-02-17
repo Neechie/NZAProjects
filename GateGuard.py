@@ -1,6 +1,6 @@
 
 
-#!/home/pi/NZAProjects
+#!/usr/bin/python
 #   File : GateGuard.py
 #   Author: Neechie
 #   Date: 31/05/2017
