@@ -160,7 +160,7 @@ try:
                                                                                     time.sleep(3)
                                                                         if GPIO.input(resetButton) == 1:
                                                                                     alarm = 0
-                                                                                    print "alarm has been reset"
+                                                                                    print "The alarm has been reset"
                                                                                     GPIO.output(red,GPIO.LOW)
                                                                                     GPIO.output(green,GPIO.HIGH)
                                                                                     time.sleep(5)
