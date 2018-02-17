@@ -1,7 +1,7 @@
 
 
-#!/usr/bin/python
-#   File : tester1.0.py
+#!/home/pi/NZAProjects
+#   File : GateGuard.py
 #   Author: Neechie
 #   Date: 31/05/2017
 #   Description : Gate guard function to be run on raspberrypi
@@ -9,35 +9,9 @@
 #   Version : 1.0
 #
 
-
-#Tag Data array
-TAG = [     "ff:04:19:c1:cf:2d",
-            "ff:3a:60:93:de:a1",
-            "c6:54:f4:99:e7:e7",
-            "cf:c3:75:38:f2:ed"
-           ]
-
-NAME = [
-           "Brendan",
-           "Danielle",
-           "Russell",
-           "Tile4"
-           ]
-c=0
-
-#Tag data
-#brendanTile = 'ff:04:19:c1:cf:2d'
-#danielleTile = 'ff:3a:60:93:de:a1'
-#russellTile = 'c6:54:f4:99:e7:e7'
-#tile4 = 'cf:c3:75:38:f2:ed'
-
 import logging
 
-# choose between DEBUG (log every information) or CRITICAL (only error)
 logLevel=logging.DEBUG
-#logLevel=logging.CRITICAL
-
-#logOutFilename='/var/log/test_beacon.log'       # output LOG : File or console (comment this line to console output)
 
 ########################################################################################################################################
 
@@ -53,6 +27,10 @@ import signal
 import threading
 import RPi.GPIO as GPIO
 
+#Counting marker for Tag Arrays
+c=0
+
+#Set GPIO pins for buttons and Leds
 red = 7
 green = 11
 stopButton = 13
@@ -70,6 +48,10 @@ GPIO.output(green,GPIO.HIGH)
 
 #Emailer function and details
 from pythonEmailer import send_email
+
+#Import tag data from TagData.py
+from TagData import TAG, NAME
+
 
 LE_META_EVENT = 0x3e
 OGF_LE_CTL=0x08
@@ -171,7 +153,8 @@ try:
                                                                                     recipient = "brendan@nationalzoo.com.au"
                                                                                     subject = "Gate Alert: " + NAME[c]
                                                                                     name =  NAME[c]
-                                                                                    body = "There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " + time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard"
+                                                                                    body = ("There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " +
+                                                                                            time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
  
                                                                                     send_email(user, pwd, recipient, subject, body, name)
                                                                                     time.sleep(3)

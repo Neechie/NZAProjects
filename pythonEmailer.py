@@ -1,4 +1,13 @@
-#Emailer function to notify staff of breach
+#!/home/pi/NZAProjects
+#   File : GateGuard.py
+#   Author: Neechie
+#   Date: 17/02/2018
+#   Description : Emailer function to be used by GateGuard.py
+#   URL : 
+#   Version : 1.0
+#
+
+#Emailer function to notify staff 
 
 def send_email(user, pwd, recipient, subject, body, name):
     import smtplib
