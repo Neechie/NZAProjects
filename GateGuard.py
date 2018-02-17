@@ -2,7 +2,7 @@
 
 #!/usr/bin/python
 #   File : GateGuard.py
-#   Author: Neechie
+#   Author: Neechie ########Special thanks to jmleglise for some of his work on the bt discovery script
 #   Date: 31/05/2017
 #   Description : Gate guard function to be run on raspberrypi
 #   URL : 
