@@ -79,14 +79,14 @@ def handler(signum = None, frame = None):
     time.sleep(1)  #here check if process is done
     sys.exit(0)   
 	
-def reset(alarm,red, green);
+def reset(alarm,red,green);
 	alarm = 0
 	print "The alarm has been reset"
         GPIO.output(red,GPIO.LOW)
         GPIO.output(green,GPIO.HIGH)
         time.sleep(5)
 	sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
-	
+	return alarm
 
 
 for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
@@ -176,7 +176,7 @@ try:
                 	                                                                time.sleep(10)
                         	                                                
 										if GPIO.input(resetButton) == 1:
-                                	                                               reset(alarm,red, green)
+                                	                                               reset(alarm,red,green)
                                 	                                                #alarm = 0
                                         	                                        #print "The alarm has been reset"
                                                 	                                #GPIO.output(red,GPIO.LOW)
@@ -191,7 +191,7 @@ try:
                                                                         
                                                             	    else:
 										if GPIO.input(resetButton) == 1:
-											reset(alarm,red, green)
+											reset(alarm,red,green)
                                 	                                                #alarm = 0
                                         	                                        #print "The alarm has been reset"
                                                 	                                #GPIO.output(red,GPIO.LOW)
