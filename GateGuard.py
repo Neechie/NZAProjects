@@ -79,7 +79,7 @@ def handler(signum = None, frame = None):
     time.sleep(1)  #here check if process is done
     sys.exit(0)   
 	
-def reset(alarm,red,green);
+def reset(alarm,red,green):
 	alarm = 0
 	print "The alarm has been reset"
         GPIO.output(red,GPIO.LOW)
