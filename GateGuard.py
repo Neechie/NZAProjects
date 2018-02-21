@@ -140,8 +140,7 @@ try:
                                     	for i in range(0, num_reports):
                                         	        for tag in TAG:
 	       	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
-                	                                            found = 0
-                        	                                    alarm = 0
+                	                                            alarm = 0
 								    reset = 0
                                 	                            if result == tag[1]:
                                         	                                name = tag[0]
@@ -168,7 +167,7 @@ try:
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
 											reset = reset+1
-                                                                        	if GPIO.input(stopButton) == 1: 
+                                                                        	elif GPIO.input(stopButton) == 1: 
                                                                                	        marker = marker+1
                                                                         	c = c+1
                                                                         
@@ -180,7 +179,7 @@ try:
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
 											reset = reset+1
-                                                                        	if GPIO.input(stopButton) == 1: 
+                                                                        	elif GPIO.input(stopButton) == 1: 
                                                                                	        marker = marker+1
                                                                         	print "No breach of the gate"
                                                                         	c = c+1
