@@ -115,7 +115,7 @@ hci_toggle_le_scan(sock, 0x01)
 
 try:
            while (marker == 0): 
-			#while (reset == 0):
+			
 			                        	
 				old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         	flt = bluez.hci_filter_new()
@@ -144,7 +144,7 @@ try:
 	       	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                 	                                            alarm = 0
 								    reset = 0
-                                	                            print num_reports
+                                	                            
 								    if result == tag[1]:
                                         	                                name = tag[0]
                                                 	                        alarm = alarm + 1
@@ -163,7 +163,7 @@ try:
                                                                                        	     time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
 	 
         	                                                                        send_email(user, pwd, recipient, subject, body, name)
-                	                                                                time.sleep(3)
+                	                                                                time.sleep(10)
                         	                                                
 										if GPIO.input(resetButton) == 1:
                                 	                                                alarm = 0
@@ -171,10 +171,8 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
-											#reset = reset+1
-											
+																						
                                                                         	elif GPIO.input(stopButton) == 1: 
-											#reset = reset+1
                                                                                	        marker = marker+1
                                                                         	
 										c = c+1
@@ -186,11 +184,9 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
-											#reset = reset+1
                                                                         	
 										elif GPIO.input(stopButton) == 1: 
-											#reset = reset+1
-                                                                               	        marker = marker+1
+											marker = marker+1
                                                                         	
 										print "No breach of the gate"
                                                                         	c = c+1
