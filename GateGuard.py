@@ -115,7 +115,7 @@ hci_toggle_le_scan(sock, 0x01)
 
 try:
            while (marker == 0): 
-			while (reset == 0):
+			#while (reset == 0):
 			                        	
 				old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         	flt = bluez.hci_filter_new()
@@ -138,6 +138,7 @@ try:
                                     	elif subevent == EVT_LE_ADVERTISING_REPORT:
                                         	        num_reports = struct.unpack("B", pkt[0])[0]
                                     	report_pkt_offset = 0
+					
                                     	for i in range(0, num_reports):
                                         	        for tag in TAG:
 	       	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
@@ -167,9 +168,9 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
-											reset = reset+1
+											#reset = reset+1
                                                                         	elif GPIO.input(stopButton) == 1: 
-											reset = reset+1
+											#reset = reset+1
                                                                                	        marker = marker+1
                                                                         	c = c+1
                                                                         
@@ -180,9 +181,9 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
-											reset = reset+1
+											#reset = reset+1
                                                                         	elif GPIO.input(stopButton) == 1: 
-											reset = reset+1
+											#reset = reset+1
                                                                                	        marker = marker+1
                                                                         	print "No breach of the gate"
                                                                         	c = c+1
