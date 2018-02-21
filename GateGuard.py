@@ -97,18 +97,18 @@ while (marker == 0) and (reset == 0):
 	(output, err) = interface.communicate()
 
 	if "RUNNING" in output: #Check return of hciconfig to make sure it's up
-    	logging.debug('Ok hci0 interface Up and running !')
+    		logging.debug('Ok hci0 interface Up and running !')
 	else:
-    	logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
-  	  sys.exit(1)
+    		logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
+  	 	 sys.exit(1)
     
 	devId = 0
 	try:
-    	sock = bluez.hci_open_dev(devId)
-    	logging.debug('Connect to bluetooth device %i',devId)
+    		sock = bluez.hci_open_dev(devId)
+    		logging.debug('Connect to bluetooth device %i',devId)
 	except:
-    	logging.critical('Unable to connect to bluetooth device...')
-    	sys.exit(1)
+    		logging.critical('Unable to connect to bluetooth device...')
+    		sys.exit(1)
 	
 	old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 	hci_toggle_le_scan(sock, 0x01)
