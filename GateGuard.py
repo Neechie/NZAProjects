@@ -78,6 +78,16 @@ def hci_toggle_le_scan(sock, enable):
 def handler(signum = None, frame = None):
     time.sleep(1)  #here check if process is done
     sys.exit(0)   
+	
+def reset(alarm,red, green);
+	alarm = 0
+	print "The alarm has been reset"
+        GPIO.output(red,GPIO.LOW)
+        GPIO.output(green,GPIO.HIGH)
+        time.sleep(5)
+	sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+	
+
 
 for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
 	signal.signal(sig, handler)
@@ -166,13 +176,14 @@ try:
                 	                                                                time.sleep(10)
                         	                                                
 										if GPIO.input(resetButton) == 1:
-                                	                                                alarm = 0
-                                        	                                        print "The alarm has been reset"
-                                                	                                GPIO.output(red,GPIO.LOW)
-                                                        	                        GPIO.output(green,GPIO.HIGH)
-                                                                	                time.sleep(5)
-											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
-																						
+                                	                                               reset(alarm,red, green)
+                                	                                                #alarm = 0
+                                        	                                        #print "The alarm has been reset"
+                                                	                                #GPIO.output(red,GPIO.LOW)
+                                                        	                        #GPIO.output(green,GPIO.HIGH)
+                                                                	                #time.sleep(5)
+											#sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+                                                                        												
                                                                         	elif GPIO.input(stopButton) == 1: 
                                                                                	        marker = marker+1
                                                                         	sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
@@ -180,12 +191,13 @@ try:
                                                                         
                                                             	    else:
 										if GPIO.input(resetButton) == 1:
-                                	                                                alarm = 0
-                                        	                                        print "The alarm has been reset"
-                                                	                                GPIO.output(red,GPIO.LOW)
-                                                        	                        GPIO.output(green,GPIO.HIGH)
-                                                                	                time.sleep(5)
-											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+											reset(alarm,red, green)
+                                	                                                #alarm = 0
+                                        	                                        #print "The alarm has been reset"
+                                                	                                #GPIO.output(red,GPIO.LOW)
+                                                        	                        #GPIO.output(green,GPIO.HIGH)
+                                                                	                #time.sleep(5)
+											#sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
                                                                         	
 										elif GPIO.input(stopButton) == 1: 
 											marker = marker+1
