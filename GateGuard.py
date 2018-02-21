@@ -51,70 +51,71 @@ GPIO.output(green,GPIO.HIGH)
 from pythonEmailer import send_email
 
 #Import tag data from TagData.py
-from TagData import TAG ##, NAME
+from TagData import TAG 
 
-while (marker == 0) and (reset == 0):
 
-	LE_META_EVENT = 0x3e
-	OGF_LE_CTL=0x08
-	OCF_LE_SET_SCAN_ENABLE=0x000C
-	EVT_LE_CONN_COMPLETE=0x01
-	EVT_LE_ADVERTISING_REPORT=0x02
 
-	def print_packet(pkt):
-	    for c in pkt:
-		sys.stdout.write("%02x " % struct.unpack("B",c)[0])
+LE_META_EVENT = 0x3e
+OGF_LE_CTL=0x08
+OCF_LE_SET_SCAN_ENABLE=0x000C
+EVT_LE_CONN_COMPLETE=0x01
+EVT_LE_ADVERTISING_REPORT=0x02
 
-	def packed_bdaddr_to_string(bdaddr_packed):
-	    return ':'.join('%02x'%i for i in struct.unpack("<BBBBBB", bdaddr_packed[::-1]))
+def print_packet(pkt):
+    for c in pkt:
+	sys.stdout.write("%02x " % struct.unpack("B",c)[0])
 
-	def hci_disable_le_scan(sock):
-	    hci_toggle_le_scan(sock, 0x00)
+def packed_bdaddr_to_string(bdaddr_packed):
+    return ':'.join('%02x'%i for i in struct.unpack("<BBBBBB", bdaddr_packed[::-1]))
 
-	def hci_toggle_le_scan(sock, enable):
-	    cmd_pkt = struct.pack("<BB", enable, 0x00)
-	    bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_LE_SET_SCAN_ENABLE, cmd_pkt)
+def hci_disable_le_scan(sock):
+    hci_toggle_le_scan(sock, 0x00)
 
-	def handler(signum = None, frame = None):
-	    time.sleep(1)  #here check if process is done
-	    sys.exit(0)   
+def hci_toggle_le_scan(sock, enable):
+    cmd_pkt = struct.pack("<BB", enable, 0x00)
+    bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_LE_SET_SCAN_ENABLE, cmd_pkt)
 
-	for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
-	    signal.signal(sig, handler)
+def handler(signum = None, frame = None):
+    time.sleep(1)  #here check if process is done
+    sys.exit(0)   
 
-	FORMAT = '%(asctime)s - %(name)s -  %(message)s'
-	if globals().has_key('logOutFilename') :
-	    logging.basicConfig(format=FORMAT,filename=logOutFilename,level=logLevel)
-	else:
-	    logging.basicConfig(format=FORMAT,level=logLevel)
+for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
+	signal.signal(sig, handler)
+		
+FORMAT = '%(asctime)s - %(name)s -  %(message)s'
+if globals().has_key('logOutFilename') :
+    logging.basicConfig(format=FORMAT,filename=logOutFilename,level=logLevel)
+else:
+    logging.basicConfig(format=FORMAT,level=logLevel)
 
-	#Reset Bluetooth interface, hci0
-	os.system("sudo hciconfig hci0 down")
-	os.system("sudo hciconfig hci0 up")
+#Reset Bluetooth interface, hci0
+os.system("sudo hciconfig hci0 down")
+os.system("sudo hciconfig hci0 up")
 
-	#Make sure device is up
-	interface = subprocess.Popen(["sudo hciconfig"], stdout=subprocess.PIPE, shell=True)
-	(output, err) = interface.communicate()
+#Make sure device is up
+interface = subprocess.Popen(["sudo hciconfig"], stdout=subprocess.PIPE, shell=True)
+(output, err) = interface.communicate()
 
-	if "RUNNING" in output: #Check return of hciconfig to make sure it's up
-    		logging.debug('Ok hci0 interface Up and running !')
-	else:
-    		logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
-  	 	sys.exit(1)
+if "RUNNING" in output: #Check return of hciconfig to make sure it's up
+    	logging.debug('Ok hci0 interface Up and running !')
+else:
+	logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
+ 	sys.exit(1)
     
-	devId = 0
-	try:
-    		sock = bluez.hci_open_dev(devId)
-    		logging.debug('Connect to bluetooth device %i',devId)
-	except:
-    		logging.critical('Unable to connect to bluetooth device...')
-    		sys.exit(1)
+devId = 0
+try:
+    	sock = bluez.hci_open_dev(devId)
+    	logging.debug('Connect to bluetooth device %i',devId)
+except:
+	logging.critical('Unable to connect to bluetooth device...')
+    	sys.exit(1)
 	
-	old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
-	hci_toggle_le_scan(sock, 0x01)
+old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
+hci_toggle_le_scan(sock, 0x01)
 
 	try:
-           # while (marker == 0) and (reset == 0):
+           while (marker == 0): 
+			while (reset == 0):
 			                        	
 				old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
                         	flt = bluez.hci_filter_new()
@@ -168,6 +169,7 @@ while (marker == 0) and (reset == 0):
                                                                 	                time.sleep(5)
 											reset = reset+1
                                                                         	elif GPIO.input(stopButton) == 1: 
+											reset = reset+1
                                                                                	        marker = marker+1
                                                                         	c = c+1
                                                                         
@@ -180,13 +182,14 @@ while (marker == 0) and (reset == 0):
                                                                 	                time.sleep(5)
 											reset = reset+1
                                                                         	elif GPIO.input(stopButton) == 1: 
+											reset = reset+1
                                                                                	        marker = marker+1
                                                                         	print "No breach of the gate"
                                                                         	c = c+1
-	#Clean up at end of run										
-	finally:
-		    print "Closing program"
-		    alarm = 0
-		    sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
-		    GPIO.cleanup()
+#Clean up at end of run										
+finally:
+	    print "Closing program"
+	    alarm = 0
+	    sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+	    GPIO.cleanup()
 
