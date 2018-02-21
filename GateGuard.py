@@ -139,13 +139,12 @@ try:
                                     	report_pkt_offset = 0
                                     	for i in range(0, num_reports):
                                         	        for tag in TAG:
-	
-        	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
+	       	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                 	                                            found=0
                         	                                    alarm = 0
 								    	
-                                	                            if (result == TAG[1]):
-                                        	                                name = TAG[0]
+                                	                            if result == tag[1]:
+                                        	                                name = tag[0]
                                                 	                        alarm = alarm + 1
                                                         	                print name +": detected at gate"
                                                                 	        GPIO.output(red, GPIO.HIGH)
@@ -155,8 +154,8 @@ try:
                                                                                     	user = "NZARasPi@gmail.com"
                                                                                     	pwd = "Jamala123"
                                                                                     	recipient = "brendan@nationalzoo.com.au"
-                                                                                    	subject = "Gate Alert: " + TAG[0]
-                                                                                    	name =  TAG[0]
+                                                                                    	subject = "Gate Alert: " + tag[0]
+                                                                                    	name =  tag[0]
                                                                                     	body = ("There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " +
                                                                                        	     time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
 	 
