@@ -144,13 +144,15 @@ try:
 	       	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                 	                                            alarm = 0
 								    reset = 0
-                                	                            if result == tag[1]:
+                                	                            print num_reports
+								    if result == tag[1]:
                                         	                                name = tag[0]
                                                 	                        alarm = alarm + 1
                                                         	                print name +": detected at gate"
                                                                 	        GPIO.output(red, GPIO.HIGH)
                                                                         	GPIO.output(green, GPIO.LOW)
-                                                                        	if alarm == 1:
+                                                                        	
+										if alarm == 1:
                                                                                 	    ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
                                                                                     	user = "NZARasPi@gmail.com"
                                                                                     	pwd = "Jamala123"
@@ -162,17 +164,20 @@ try:
 	 
         	                                                                        send_email(user, pwd, recipient, subject, body, name)
                 	                                                                time.sleep(3)
-                        	                                                if GPIO.input(resetButton) == 1:
+                        	                                                
+										if GPIO.input(resetButton) == 1:
                                 	                                                alarm = 0
                                         	                                        print "The alarm has been reset"
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
 											#reset = reset+1
+											
                                                                         	elif GPIO.input(stopButton) == 1: 
 											#reset = reset+1
                                                                                	        marker = marker+1
-                                                                        	c = c+1
+                                                                        	
+										c = c+1
                                                                         
                                                             	    else:
 										if GPIO.input(resetButton) == 1:
@@ -182,10 +187,12 @@ try:
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
 											#reset = reset+1
-                                                                        	elif GPIO.input(stopButton) == 1: 
+                                                                        	
+										elif GPIO.input(stopButton) == 1: 
 											#reset = reset+1
                                                                                	        marker = marker+1
-                                                                        	print "No breach of the gate"
+                                                                        	
+										print "No breach of the gate"
                                                                         	c = c+1
 #Clean up at end of run										
 finally:
