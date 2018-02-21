@@ -171,10 +171,11 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
+											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
 																						
                                                                         	elif GPIO.input(stopButton) == 1: 
                                                                                	        marker = marker+1
-                                                                        	
+                                                                        	sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
 										c = c+1
                                                                         
                                                             	    else:
@@ -184,11 +185,13 @@ try:
                                                 	                                GPIO.output(red,GPIO.LOW)
                                                         	                        GPIO.output(green,GPIO.HIGH)
                                                                 	                time.sleep(5)
+											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
                                                                         	
 										elif GPIO.input(stopButton) == 1: 
 											marker = marker+1
                                                                         	
 										print "No breach of the gate"
+										sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
                                                                         	c = c+1
 #Clean up at end of run										
 finally:
