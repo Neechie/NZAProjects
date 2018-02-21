@@ -100,7 +100,7 @@ while (marker == 0) and (reset == 0):
     		logging.debug('Ok hci0 interface Up and running !')
 	else:
     		logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
-  	 	 sys.exit(1)
+  	 	sys.exit(1)
     
 	devId = 0
 	try:
