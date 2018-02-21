@@ -176,13 +176,13 @@ try:
                 	                                                                time.sleep(10)
                         	                                                
 										if GPIO.input(resetButton) == 1:
-                                	                                               reset(alarm,red,green)
-                                	                                                #alarm = 0
-                                        	                                        #print "The alarm has been reset"
-                                                	                                #GPIO.output(red,GPIO.LOW)
-                                                        	                        #GPIO.output(green,GPIO.HIGH)
-                                                                	                #time.sleep(5)
-											#sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+                                	                                                #reset(alarm,red,green)
+                                	                                                alarm = 0
+                                        	                                        print "The alarm has been reset"
+                                                	                                GPIO.output(red,GPIO.LOW)
+                                                        	                        GPIO.output(green,GPIO.HIGH)
+                                                                	                time.sleep(5)
+											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
                                                                         												
                                                                         	elif GPIO.input(stopButton) == 1: 
                                                                                	        marker = marker+1
@@ -191,13 +191,13 @@ try:
                                                                         
                                                             	    else:
 										if GPIO.input(resetButton) == 1:
-											reset(alarm,red,green)
-                                	                                                #alarm = 0
-                                        	                                        #print "The alarm has been reset"
-                                                	                                #GPIO.output(red,GPIO.LOW)
-                                                        	                        #GPIO.output(green,GPIO.HIGH)
-                                                                	                #time.sleep(5)
-											#sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+											#reset(alarm,red,green)
+                                	                                                alarm = 0
+                                        	                                        print "The alarm has been reset"
+                                                	                                GPIO.output(red,GPIO.LOW)
+                                                        	                        GPIO.output(green,GPIO.HIGH)
+                                                                	                time.sleep(5)
+											sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
                                                                         	
 										elif GPIO.input(stopButton) == 1: 
 											marker = marker+1
