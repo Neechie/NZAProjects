@@ -83,7 +83,7 @@ while (marker == 0) and (reset == 0):
 	    signal.signal(sig, handler)
 
 	FORMAT = '%(asctime)s - %(name)s -  %(message)s'
-if globals().has_key('logOutFilename') :
+	if globals().has_key('logOutFilename') :
 	    logging.basicConfig(format=FORMAT,filename=logOutFilename,level=logLevel)
 	else:
 	    logging.basicConfig(format=FORMAT,level=logLevel)
@@ -113,7 +113,7 @@ if globals().has_key('logOutFilename') :
 	old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 	hci_toggle_le_scan(sock, 0x01)
 
-try:
+	try:
            # while (marker == 0) and (reset == 0):
 			                        	
 				old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
@@ -183,10 +183,10 @@ try:
                                                                                	        marker = marker+1
                                                                         	print "No breach of the gate"
                                                                         	c = c+1
-#Clean up at end of run										
-finally:
-            print "Closing program"
-            alarm = 0
-            sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
-            GPIO.cleanup()
+	#Clean up at end of run										
+	finally:
+		    print "Closing program"
+		    alarm = 0
+		    sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, old_filter )
+		    GPIO.cleanup()
 
