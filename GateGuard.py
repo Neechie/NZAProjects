@@ -30,7 +30,7 @@ import RPi.GPIO as GPIO
 #Counting marker for Tag Arrays
 c=0
 
-#Set GPIO pins for buttons and Leds
+#Set GPIO pins for buttons and LEDs
 red = 7
 green = 11
 stopButton = 13
