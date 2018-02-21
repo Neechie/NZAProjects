@@ -113,7 +113,7 @@ except:
 old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
 hci_toggle_le_scan(sock, 0x01)
 
-	try:
+try:
            while (marker == 0): 
 			while (reset == 0):
 			                        	
