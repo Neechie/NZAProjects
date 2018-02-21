@@ -42,6 +42,7 @@ GPIO.setup(stopButton, GPIO.IN)
 GPIO.setup(resetButton, GPIO.IN)
 
 marker = 0
+reset = 0
 
 GPIO.output(red,GPIO.LOW)
 GPIO.output(green,GPIO.HIGH)
@@ -95,7 +96,7 @@ interface = subprocess.Popen(["sudo hciconfig"], stdout=subprocess.PIPE, shell=T
 (output, err) = interface.communicate()
 
 if "RUNNING" in output: #Check return of hciconfig to make sure it's up
-    logging.debug('Ok hci0 interface Up n running !')
+    logging.debug('Ok hci0 interface Up and running !')
 else:
     logging.critical('Error : hci0 interface not Running. Do you have a BLE device connected to hci0 ? Check with hciconfig !')
     sys.exit(1)
@@ -113,64 +114,68 @@ hci_toggle_le_scan(sock, 0x01)
 
 try:
             while marker == 0:
-                        old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
-                        flt = bluez.hci_filter_new()
-                        bluez.hci_filter_all_events(flt)
-                        bluez.hci_filter_set_ptype(flt, bluez.HCI_EVENT_PKT)
-                        sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, flt )
-                        pkt = sock.recv(255)
-                        ptype, event, plen = struct.unpack("BBB", pkt[:3])
-                        if event == bluez.EVT_INQUIRY_RESULT_WITH_RSSI:
-                                    i =0
-                        elif event == bluez.EVT_NUM_COMP_PKTS:
-                                    i =0 
-                        elif event == bluez.EVT_DISCONN_COMPLETE:
-                                    i =0 
-                        elif event == LE_META_EVENT:
-                                    subevent, = struct.unpack("B", pkt[3])
-                                    pkt = pkt[4:]
-                                    if subevent == EVT_LE_CONN_COMPLETE:
-                                                le_handle_connection_complete(pkt)
-                                    elif subevent == EVT_LE_ADVERTISING_REPORT:
-                                                num_reports = struct.unpack("B", pkt[0])[0]
-                                    report_pkt_offset = 0
-                                    for i in range(0, num_reports):
-                                                for c in range(0,len(TAG)):
-
-                                                            result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
-                                                            found=0
-                                                            alarm = 0
-                                                            if (result == TAG[c]):
-                                                                        name = NAME[c]
-                                                                        alarm = alarm + 1
-                                                                        print name +": detected at gate"
-                                                                        GPIO.output(red, GPIO.HIGH)
-                                                                        GPIO.output(green, GPIO.LOW)
-                                                                        if alarm == 1:
-                                                                                    ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
-                                                                                    user = "NZARasPi@gmail.com"
-                                                                                    pwd = "Jamala123"
-                                                                                    recipient = "brendan@nationalzoo.com.au"
-                                                                                    subject = "Gate Alert: " + NAME[c]
-                                                                                    name =  NAME[c]
-                                                                                    body = ("There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " +
-                                                                                            time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
- 
-                                                                                    send_email(user, pwd, recipient, subject, body, name)
-                                                                                    time.sleep(3)
-                                                                        if GPIO.input(resetButton) == 1:
-                                                                                    alarm = 0
-                                                                                    print "The alarm has been reset"
-                                                                                    GPIO.output(red,GPIO.LOW)
-                                                                                    GPIO.output(green,GPIO.HIGH)
-                                                                                    time.sleep(5)
-                                                                        elif GPIO.input(stopButton) == 1: 
-                                                                                    marker = marker+1
-                                                                        c = c+1
+			while reset == 0:
+                        	
+				old_filter = sock.getsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, 14)
+                        	flt = bluez.hci_filter_new()
+                        	bluez.hci_filter_all_events(flt)
+                        	bluez.hci_filter_set_ptype(flt, bluez.HCI_EVENT_PKT)
+                        	sock.setsockopt( bluez.SOL_HCI, bluez.HCI_FILTER, flt )
+                        	pkt = sock.recv(255)
+                        	ptype, event, plen = struct.unpack("BBB", pkt[:3])
+                        	if event == bluez.EVT_INQUIRY_RESULT_WITH_RSSI:
+                                    	i =0
+                        	elif event == bluez.EVT_NUM_COMP_PKTS:
+                                    	i =0 
+                        	elif event == bluez.EVT_DISCONN_COMPLETE:
+                                    	i =0 
+                        	elif event == LE_META_EVENT:
+                                    	subevent, = struct.unpack("B", pkt[3])
+                                    	pkt = pkt[4:]
+                                    	if subevent == EVT_LE_CONN_COMPLETE:
+                                        	        le_handle_connection_complete(pkt)
+                                    	elif subevent == EVT_LE_ADVERTISING_REPORT:
+                                        	        num_reports = struct.unpack("B", pkt[0])[0]
+                                    	report_pkt_offset = 0
+                                    	for i in range(0, num_reports):
+                                        	        for c in range(0,len(TAG)):
+	
+        	                                                    result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
+                	                                            found=0
+                        	                                    alarm = 0
+								    	
+                                	                            if (result == TAG[c]):
+                                        	                                name = NAME[c]
+                                                	                        alarm = alarm + 1
+                                                        	                print name +": detected at gate"
+                                                                	        GPIO.output(red, GPIO.HIGH)
+                                                                        	GPIO.output(green, GPIO.LOW)
+                                                                        	if alarm == 1:
+                                                                                	    ###### INPUT EMAILER ACCOUNT CREDENTIALS BELOW ##########
+                                                                                    	user = "NZARasPi@gmail.com"
+                                                                                    	pwd = "Jamala123"
+                                                                                    	recipient = "brendan@nationalzoo.com.au"
+                                                                                    	subject = "Gate Alert: " + NAME[c]
+                                                                                    	name =  NAME[c]
+                                                                                    	body = ("There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " +
+                                                                                       	     time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
+	 
+        	                                                                        send_email(user, pwd, recipient, subject, body, name)
+                	                                                                time.sleep(3)
+                        	                                                if GPIO.input(resetButton) == 1:
+                                	                                                alarm = 0
+                                        	                                        print "The alarm has been reset"
+                                                	                                GPIO.output(red,GPIO.LOW)
+                                                        	                        GPIO.output(green,GPIO.HIGH)
+                                                                	                time.sleep(5)
+											reset = reset+1
+                                                                        	elif GPIO.input(stopButton) == 1: 
+                                                                               	        marker = marker+1
+                                                                        	c = c+1
                                                                         
-                                                            else:
-                                                                        print "No breach of the gate"
-                                                                        c = c+1
+                                                            	    else:
+                                                                	        print "No breach of the gate"
+                                                                        	c = c+1
 
 
 finally:
