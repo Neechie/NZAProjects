@@ -2,7 +2,7 @@
 
 #!/usr/bin/python
 #   File : GateGuard.py
-#   Author: Neechie ########Special thanks to jmleglise for some of his work on the bt discovery script
+#   Author: Neechie with some help from jmleglise for some of his work on the bt discovery script
 #   Date: 31/05/2017
 #   Description : Gate guard function to be run on raspberrypi
 #   URL : 
@@ -50,7 +50,7 @@ GPIO.output(green,GPIO.HIGH)
 from pythonEmailer import send_email
 
 #Import tag data from TagData.py
-from TagData import TAG, NAME
+from TagData import TAG ##, NAME
 
 
 LE_META_EVENT = 0x3e
@@ -135,13 +135,13 @@ try:
                                                 num_reports = struct.unpack("B", pkt[0])[0]
                                     report_pkt_offset = 0
                                     for i in range(0, num_reports):
-                                                for c in range(0,len(TAG)):
+                                                for tag in TAG:
 
                                                             result=packed_bdaddr_to_string(pkt[report_pkt_offset + 3:report_pkt_offset + 9])
                                                             found=0
                                                             alarm = 0
-                                                            if (result == TAG[c]):
-                                                                        name = NAME[c]
+                                                            if (result == TAG[0]):
+                                                                        name = TAG[1]
                                                                         alarm = alarm + 1
                                                                         print name +": detected at gate"
                                                                         GPIO.output(red, GPIO.HIGH)
@@ -151,8 +151,8 @@ try:
                                                                                     user = "NZARasPi@gmail.com"
                                                                                     pwd = "Jamala123"
                                                                                     recipient = "brendan@nationalzoo.com.au"
-                                                                                    subject = "Gate Alert: " + NAME[c]
-                                                                                    name =  NAME[c]
+                                                                                    subject = "Gate Alert: " + TAG[1]
+                                                                                    name =  TAG[1]
                                                                                     body = ("There has been an alarm at the gate! \n" + name + " has been detected leaving the premises at  " +
                                                                                             time.strftime("%T, %d/%m/%y") + "\n\n Sent from NZA RasPi GateGuard")
  
@@ -169,6 +169,14 @@ try:
                                                                         c = c+1
                                                                         
                                                             else:
+                                                                        if GPIO.input(resetButton) == 1:
+                                                                                    alarm = 0
+                                                                                    print "The alarm has been reset"
+                                                                                    GPIO.output(red,GPIO.LOW)
+                                                                                    GPIO.output(green,GPIO.HIGH)
+                                                                                    time.sleep(5)
+                                                                        elif GPIO.input(stopButton) == 1: 
+                                                                                    marker = marker+1
                                                                         print "No breach of the gate"
                                                                         c = c+1
 
